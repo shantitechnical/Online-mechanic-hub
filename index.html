@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Mechanic Hub</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #1e88e5;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #1565c0;
+      padding: 0.5rem;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .sidebar {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .sidebar h3 {
+      margin-bottom: 1rem;
+    }
+    .service-list {
+      list-style: none;
+      padding: 0;
+    }
+    .service-list li {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .main {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .card h4 {
+      margin: 0 0 0.5rem 0;
+    }
+    .rating {
+      color: #ffc107;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1e88e5;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Online Mechanic Hub</h1>
+    <p>Find trusted electricians, plumbers, and repair services near you</p>
+  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Book Now</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="container">
+    <aside class="sidebar">
+      <h3>Service Categories</h3>
+      <ul class="service-list">
+        <li onclick="filterServices('Electrician')">Electricians</li>
+        <li onclick="filterServices('Plumber')">Plumbers</li>
+        <li onclick="filterServices('Appliance Repair')">Appliance Repair</li>
+        <li onclick="filterServices('All')">All Services</li>
+      </ul>
+    </aside>
+    <main class="main" id="serviceContainer">
+      <!-- Service Cards will be injected here by JavaScript -->
+    </main>
+  </div>
+  <footer>
+    &copy; 2025 Online Mechanic Hub. All rights reserved.
+  </footer>
+
+  <script>
+    const services = [
+      { name: 'Ramesh Sharma', type: 'Electrician', rating: 4.5 },
+      { name: 'Sita Karki', type: 'Plumber', rating: 4.8 },
+      { name: 'Bikash Gurung', type: 'Appliance Repair', rating: 4.2 },
+      { name: 'Manoj Bhandari', type: 'Electrician', rating: 4.9 },
+    ];
+
+    function renderServices(filter) {
+      const container = document.getElementById('serviceContainer');
+      container.innerHTML = '';
+      const filtered = filter === 'All' ? services : services.filter(s => s.type === filter);
+      filtered.forEach(service => {
+        container.innerHTML += `
+          <div class="card">
+            <h4>${service.name}</h4>
+            <p>Type: ${service.type}</p>
+            <p class="rating">Rating: ${'★'.repeat(Math.round(service.rating))}</p>
+            <button onclick="alert('Booking ${service.name}')">Book Now</button>
+          </div>
+        `;
+      });
+    }
+
+    function filterServices(type) {
+      renderServices(type);
+    }
+
+    // Initial render
+    renderServices('All');
+  </script>
+</body>
+</html>
